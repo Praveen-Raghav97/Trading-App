@@ -11,6 +11,6 @@ router.post('/', auth, placeTrade);
 router.get('/', auth, checkOutcomes);
 
 // Settle a trade
-router.put('/:id/settle', auth, settleTrade);
+router.post('/settle', protect, admin, settleTrade);
 
 export default router;

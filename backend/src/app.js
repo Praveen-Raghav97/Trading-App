@@ -4,10 +4,11 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import fetchData from './fetchData.js';
 import { WebSocketServer } from 'ws';
-import logger from './logger.js';
+import logger from './utils/logger.js';
 import authRoutes from './routes/auth.js';
 import eventRoutes from './routes/eventRoutes.js';
 import tradeRoutes from './routes/tradeRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 import auth from './middleware/auth.js';
 import checkRole from './middleware/role.js';
 
@@ -39,6 +40,11 @@ app.use('/api/events', eventRoutes);
 // Trade routes
 app.use('/api/trades', tradeRoutes);
 
+// Admin routes
+app.use('/api/admin', adminRoutes);
+
+
+
 // Example protected route for all authenticated users
 app.get('/protected', auth, (req, res) => {
   res.send('Protected route accessed');
@@ -69,6 +75,15 @@ wss.on('connection', (ws) => {
   ws.on('placeTrade', async (data) => {
     logger.info('tradeUpdate', data); // Broadcast trade updates
   });
+
+    // Emit live events to clients
+    const sendLiveEvents = async () => {
+      const liveEvents = await Event.find({ status: 'live' });
+      ws.emit('liveEvents', liveEvents);
+    };
+  
+    sendLiveEvents(); // Send data immediately
+    const interval = setInterval(sendLiveEvents, 10000); // Update every 10 seconds
 
   ws.on('eventUpdate', async (data) => {
     logger.info('eventUpdate', data); // Broadcast event updates
