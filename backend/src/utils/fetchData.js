@@ -10,7 +10,7 @@ dotenv.config();
 const fetchData = async (broadcast) => {
   try {
     const apiKey = process.env.API_KEY;
-    const response = await axios.get('https://api.the-odds-api.com/v4/sports/upcoming/odds', {
+    const response = await axios.get(process.env.API_URL, {
         params: {
             apiKey,
           regions: 'us', // Adjust for regions like 'uk', 'eu', etc.

@@ -1,6 +1,7 @@
 import express from 'express';
 import { placeTrade, checkOutcomes, settleTrade } from '../controllers/tradeController.js';
 import auth from '../middleware/auth.js';
+import admin from '../middleware/admin.js';
 
 const router = express.Router();
 
@@ -11,6 +12,6 @@ router.post('/', auth, placeTrade);
 router.get('/', auth, checkOutcomes);
 
 // Settle a trade
-router.post('/settle', protect, admin, settleTrade);
+router.put('/:id/settle', auth, admin, settleTrade);
 
 export default router;

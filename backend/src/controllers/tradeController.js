@@ -44,27 +44,46 @@ export const checkOutcomes = async (req, res) => {
 // Settle a trade
 export const settleTrade = async (req, res) => {
   try {
-    const { eventId, outcome } = req.body;
     const trade = await Trade.findById(req.params.id);
-    const trades = await Trade.find({ eventId, status: 'open' });
-    const event = await Event.findById(eventId);
-    event.outcome = outcome;
-    event.status = 'completed';
-    await event.save();
+    if (!trade) {
+      return res.status(404).send('Trade not found');
+    }
+    if (trade.status === 'closed') {
+      return res.status(400).send('Trade already settled');
+    }
 
-    for (let trade of trades) {
+    const event = await Event.findById(trade.eventId);
+    if (!event) {
+      return res.status(404).send('Event not found');
+    }
+
+    // Example logic for settling a trade based on event outcome
+    if (event.outcome === 'win' && trade.type === 'buy') {
+      trade.status = 'closed';
+      trade.result = 'win';
+      // Update user balance
       const user = await User.findById(trade.userId);
-      if ((trade.type === 'buy' && outcome === 'win') || (trade.type === 'sell' && outcome === 'lose')) {
-        user.balance += trade.amount * 2; // Double payout for winning trades
-      }
-    trade.status = 'closed';
-    await trade.save();
-    await user.save();
-  }
-
-  res.status(200).json({ message: 'Trades settled' });
+      user.balance += trade.amount * event.odds;
+      await user.save();
+    } else {
+      trade.status = 'closed';
+      trade.result = 'lose';
+    }    await trade.save();
+    res.status(200).send(trade);
   } catch (error) {
     logger.error('Error settling trade:', error);
     res.status(500).send('Error settling trade');
+  }
+};
+
+
+// Get all trades (admin only)
+export const getAllTrades = async (req, res) => {
+  try {
+    const trades = await Trade.find();
+    res.status(200).send(trades);
+  } catch (error) {
+    logger.error('Error getting trades:', error);
+    res.status(500).send('Error getting trades');
   }
 };

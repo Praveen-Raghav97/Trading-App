@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 
 const tradeSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' },
-  amount: Number,
-  type: { type: String, enum: ['buy', 'sell'] },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
+  amount: { type: Number, required: true },
+  type: { type: String, enum: ['buy', 'sell'], required: true },
   status: { type: String, enum: ['open', 'closed'], default: 'open' },
+  result: { type: String, enum: ['win', 'lose', 'pending'], default: 'pending' },
   createdAt: { type: Date, default: Date.now }
 });
 
