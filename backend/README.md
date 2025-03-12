@@ -282,6 +282,40 @@ npm run lint
 
 ---
 
+**Architecture and Data Flow**
+# Architecture
+## The application follows a typical MVC (Model-View-Controller) architecture:
+
+Models: Define the data structure and interact with the database.
+Controllers: Handle the business logic and process incoming requests.
+Routes: Define the endpoints and map them to the corresponding controller methods.
+Middleware: Handle authentication, authorization, and other pre-processing tasks.
+
+# Data Flow
+1. Client Request: The client sends a request to the server (e.g., to place a trade).
+2. Route Handling: The request is routed to the appropriate controller method 3.based on the endpoint.
+3. Controller Logic: The controller processes the request, interacts with the models, and performs the necessary business logic.
+4. Database Interaction: The models interact with the MongoDB database to fetch or store data.
+5. Response: The controller sends a response back to the client with the requested data or confirmation of the action performed.
+
+**Challenges and Solutions**
+
+# Challenge 1: Real-time Updates
+Problem: Ensuring that all clients receive real-time updates for events and trades.
+
+Solution: Implemented Socket.io to handle real-time communication between the server and clients. This allows the server to broadcast updates to all connected clients whenever there is a change in events or trades.
+
+# Challenge 2: Role-based Access Control
+Problem: Restricting certain actions (e.g., creating events, settling trades) to admin users only.
+
+Solution: Implemented role-based access control using middleware. The middleware checks the user's role before allowing access to specific endpoints.
+
+# Challenge 3: Data Consistency
+Problem: Ensuring data consistency when multiple clients are interacting with the same data (e.g., placing trades on the same event).
+
+Solution: Used Mongoose transactions to ensure atomic operations and maintain data consistency. This ensures that all related operations are completed successfully or none at all.
+
+
 ## 📄 License
 This project is licensed under the MIT License.
 
