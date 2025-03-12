@@ -78,7 +78,7 @@ Endpoint: GET /api/events
 Description: Get a list of all events.
  
  **Response:**
-
+ ```json
 [
   {
     "_id": "event_id",
@@ -91,12 +91,13 @@ Description: Get a list of all events.
     "createdAt": "2025-03-01T00:00:00.000Z"
   }
 ] ,
-
+```
 Create Event (Admin Only)
 Endpoint: POST /api/admin/events
 Description: Create a new event.
 
   **Request Body:**
+```json
 {
   "name": "Event Name",
   "date": "2025-03-15T00:00:00.000Z",
@@ -104,8 +105,9 @@ Description: Create a new event.
   "status": "upcoming",
   "odds": 1.5
 },
-
+```
   **Response:**
+  ```json
 {
   "_id": "event_id",
   "name": "Event Name",
@@ -116,7 +118,7 @@ Description: Create a new event.
   "odds": 1.5,
   "createdAt": "2025-03-01T00:00:00.000Z"
 },
-
+```
 ### Trades
 #### 1. Place a Trade
 Endpoint: POST /api/trades
@@ -177,6 +179,7 @@ Endpoint: GET /api/trades
 Description: Get a list of all trades for the authenticated user.
  
  **Response:**
+ ```json
 [
   {
     "_id": "trade_id",
@@ -189,13 +192,13 @@ Description: Get a list of all trades for the authenticated user.
     "createdAt": "2025-03-01T00:00:00.000Z"
   }
 ],
-
+```
 #### 4. Settle Trade (Admin Only)
 Endpoint: PUT /api/trades/:id/settle
 Description: Settle a trade based on event outcomes.
 
  **Response:**
-
+```json
 {
   "_id": "trade_id",
   "userId": "user_id",
@@ -206,13 +209,14 @@ Description: Settle a trade based on event outcomes.
   "result": "win",
   "createdAt": "2025-03-01T00:00:00.000Z"
 },
-
+```
 # Admin
 #### 5.List All Trades (Admin Only)
 Endpoint: GET /api/admin/trades
 Description: Get a list of all trades.
  
  **Response:**
+ ```json
 [
   {
     "_id": "trade_id",
@@ -225,6 +229,7 @@ Description: Get a list of all trades.
     "createdAt": "2025-03-01T00:00:00.000Z"
   }
 ]
+```
 ---
 
 ## Getting Started
