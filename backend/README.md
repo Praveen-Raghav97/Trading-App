@@ -1,4 +1,5 @@
 # Opinion Trading App
+![Trading App Banner](./banner-img.png)
 
 ## 🚀 Project Introduction..
 
