@@ -1,9 +1,9 @@
 // controllers/eventController.js
 
-import Event from "../models/Event";
+import Event from "../models/Event.js";
 
 
-getLiveEvents = async (req, res) => {
+ const getLiveEvents = async (req, res) => {
   try {
     const liveEvents = await Event.find({ status: 'live' });
     res.status(200).json(liveEvents);

@@ -8,7 +8,7 @@ import authRoutes from './routes/auth.js';
 import eventRoutes from './routes/eventRoutes.js';
 import tradeRoutes from './routes/tradeRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
-import auth from './middleware/auth.js';
+import {auth} from './middleware/auth.js';
 import checkRole from './middleware/role.js';
 import { createServer } from 'http';
 import { Server } from 'socket.io';

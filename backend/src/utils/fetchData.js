@@ -1,8 +1,8 @@
 import axios from 'axios';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import Event from './models/Event.js';
-import MarketData from './models/MarketData.js';
+import Event from '../models/Event.js';
+import MarketData from '../models/MarketData.js';
 import logger from './logger.js';
 
 dotenv.config();

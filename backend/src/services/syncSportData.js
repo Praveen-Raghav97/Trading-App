@@ -1,9 +1,9 @@
 
 // services/syncSportsData.js
 
-import Event from "../models/Event";
-import calculateOdds from "./calculateOdds";
-import fetchData from "./fetchData";
+import Event from "../models/Event.js";
+import calculateOdds from "./calculateOdds.js";
+import fetchData from "./fetchData.js";
 
 const syncSportsData = async () => {
   const sportsData = await fetchData();
