@@ -10,20 +10,14 @@ dotenv.config();
 const fetchData = async (broadcast) => {
   try {
     const apiKey = process.env.API_KEY;
-    const response = await axios.get(process.env.API_URL, {
-        params: {
-            apiKey,
-          regions: 'us', // Adjust for regions like 'uk', 'eu', etc.
-          markets: 'h2h', // 'h2h' (head to head) or 'spreads', etc.
-          oddsFormat: 'decimal'
-        }
-      });;
-console.log(response, "this is res")
-    const events = response.data.events;
+    const response = await axios.get(process.env.API_URL);;
+
+ ///console.log(response, "this is res")
+    const events = response.data;
     const marketData = response.data.marketData;
 
     // Store events in MongoDB
-  //  await Event.insertMany(events);
+    await Event.insertMany(events);
 
     // Store market data in MongoDB
    // await MarketData.insertMany(marketData);
