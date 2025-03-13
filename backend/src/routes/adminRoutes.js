@@ -14,5 +14,5 @@ router.put('/events/:id', protect, admin, updateEvent);
 router.delete('/events/:id', protect, admin, deleteEvent);
 
 // Trade routes
-router.get('/trades', auth, admin), getAllTrades);
+router.get('/trades', auth, admin, getAllTrades);
 export default router;
